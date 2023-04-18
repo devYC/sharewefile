@@ -1,0 +1,12 @@
+html,
+body {
+  margin: auto;
+  height: 100%;
+  width: 100%;
+
+  font-family: "Arial";
+  font-weight: 700;
+  color: #ffffff;
+
+  background: radial-gradient(50% 50% at 50% 50%, #15aaff 0%, #adf7f2 100%);
+}
