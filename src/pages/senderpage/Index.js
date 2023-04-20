@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import user3 from "../../assets/usericons/user3.svg";
 import url from "../../assets/buttonicons/URL.svg";
+import UrlModal from "../../common/components/modal/urlmodal/Index";
 
-function Sender() {
+function Sender({ randomUrl, handleGenerateURL }) {
   const [showUrlModal, setShowUrlModal] = useState(false);
 
   const handleUrlShow = () => {
     setShowUrlModal(true);
   };
 
+  const handleModalClose = () => {
+    setShowUrlModal(false);
+  };
+
   const handleButtonClick = () => {
+    handleGenerateURL();
     handleUrlShow();
   };
 
@@ -21,6 +27,11 @@ function Sender() {
       <Name>Sender</Name>
       <UserImg src={user3} alt="sender" />
       <URLButton type="button" onClick={handleButtonClick} />
+      <ModalContainer show={showUrlModal}>
+        {showUrlModal && (
+          <UrlModal onClose={handleModalClose} randomUrl={randomUrl} />
+        )}
+      </ModalContainer>
     </>
   );
 }
@@ -87,6 +98,20 @@ const URLButton = styled.button`
     background-color: rgba(0, 0, 0, 0.1);
   }
   -webkit-transform: translate(-50%, -50%);
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+const ModalContainer = styled.div`
+  display: ${props => (props.show ? "block" : "none")};
+  animation: ${fadeIn} 400ms ease-in-out;
 `;
 
 export default Sender;
