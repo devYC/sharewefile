@@ -1,14 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import user4 from "../../assets/usericons/user4.svg";
+import receiverRTCconfig from "../../config/receiverRTCconfig";
+import { remoteConnection } from "../../config/receiverRTCconfig";
+import SenderIcon from "../../common/components/modal/sendericon/Index";
 
 function Receiver() {
+  const [showSender, setShowSender] = useState(false);
+
+  const handleInitialConnectionState = () => {
+    if (remoteConnection.connectionState === "connected") {
+      setShowSender(true);
+    }
+  };
+
+  const handleConnectionStateChange = () => {
+    if (remoteConnection.connectionState === "connected") {
+      setShowSender(true);
+    } else if (remoteConnection.connectionState === "disconnected") {
+      setShowSender(false);
+    }
+  };
+
+  useEffect(() => {
+    receiverRTCconfig();
+
+    remoteConnection.addEventListener(
+      "connectionstatechange",
+      handleConnectionStateChange
+    );
+    handleInitialConnectionState();
+    return () => {
+      remoteConnection.removeEventListener(
+        "connectionstatechange",
+        handleConnectionStateChange
+      );
+    };
+  }, []);
+
   return (
     <>
       <Elipse1 />
       <Name>Receiver</Name>
       <UserImg src={user4} alt="receiver" />
+      {showSender && <SenderIcon />}
     </>
   );
 }
