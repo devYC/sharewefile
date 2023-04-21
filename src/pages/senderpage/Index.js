@@ -1,12 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 
 import user3 from "../../assets/usericons/user3.svg";
 import url from "../../assets/buttonicons/URL.svg";
 import UrlModal from "../../common/components/modal/urlmodal/Index";
+import senderRTCconfig from "../../config/senderRTCconfig";
+import { localConnection } from "../../config/senderRTCconfig";
+import ReceiverIcon from "../../common/components/modal/receivericon/Index";
 
 function Sender({ randomUrl, handleGenerateURL }) {
   const [showUrlModal, setShowUrlModal] = useState(false);
+  const [showReceiver, setShowReceiver] = useState(false);
+
+  const handleInitialConnectionState = () => {
+    if (localConnection.connectionState === "connected") {
+      setShowReceiver(true);
+    }
+  };
+
+  const handleConnectionStateChange = () => {
+    if (localConnection.connectionState === "connected") {
+      setShowReceiver(true);
+    } else if (localConnection.connectionState === "disconnected") {
+      setShowReceiver(false);
+    }
+  };
+
+  useEffect(() => {
+    senderRTCconfig();
+
+    localConnection.addEventListener(
+      "connectionstatechange",
+      handleConnectionStateChange
+    );
+    handleInitialConnectionState();
+    return () => {
+      localConnection.removeEventListener(
+        "connectionstatechange",
+        handleConnectionStateChange
+      );
+    };
+  }, []);
 
   const handleUrlShow = () => {
     setShowUrlModal(true);
@@ -32,6 +66,7 @@ function Sender({ randomUrl, handleGenerateURL }) {
           <UrlModal onClose={handleModalClose} randomUrl={randomUrl} />
         )}
       </ModalContainer>
+      {showReceiver && <ReceiverIcon />}
     </>
   );
 }
