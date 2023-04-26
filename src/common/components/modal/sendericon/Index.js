@@ -1,13 +1,91 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 import user3 from "../../../../assets/usericons/user3.svg";
+import { remoteConnection } from "../../../../config/receiverRTCconfig";
+import AcceptModal from "../acceptmodal/Index";
+import TransferingLine from "../transferingline/Index";
 
 function SenderIcon() {
+  const metadataRef = useRef("");
+  const [transfering, setTransfering] = useState(false);
+  const [metadata, setMetadata] = useState(null);
+  const [downloadLink, setDownloadLink] = useState("");
+  const [fileUrl, setFileUrl] = useState(null);
+  const [fileType, setFileType] = useState(null);
+
+  const handleCloseButton = () => {
+    setDownloadLink("");
+  };
+
+  remoteConnection.ondatachannel = e => {
+    const receiveChannel = e.channel;
+    let chunksBuffer = [];
+
+    receiveChannel.onmessage = e => {
+      if (typeof e.data === "string") {
+        metadataRef.current = JSON.parse(e.data);
+        setMetadata(metadataRef.current);
+      }
+
+      if (typeof e.data === "object") {
+        const fileBuffer = e.data;
+        chunksBuffer.push(fileBuffer);
+
+        const receivedSize = chunksBuffer.reduce(
+          (acc, chunk) => acc + chunk.byteLength,
+          0
+        );
+
+        if (receivedSize === metadataRef.current.size) {
+          const fileBlob = new Blob(chunksBuffer, {
+            type: metadataRef.current.type,
+          });
+
+          const fileUrl = URL.createObjectURL(fileBlob);
+
+          setFileUrl(fileUrl);
+          setFileType(metadataRef.current.type.split("/")[0]);
+
+          const link = document.createElement("a");
+          link.href = fileUrl;
+          link.download = metadataRef.current.name;
+          setDownloadLink(link);
+
+          chunksBuffer = [];
+        }
+      }
+    };
+  };
+
+  const handleDownloadFile = () => {
+    setTransfering(true);
+    downloadLink.download = metadataRef.current.name;
+    downloadLink.dispatchEvent(
+      new MouseEvent("click", {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+      })
+    );
+    setDownloadLink("");
+    setTimeout(() => {
+      setTransfering(false);
+    }, 1000);
+  };
+
   return (
     <>
       <Name>Sender</Name>
       <UserImg src={user3} alt="sender" />
+      {downloadLink !== "" && (
+        <AcceptModal
+          metadata={metadata}
+          handleCloseButton={handleCloseButton}
+          handleDownloadFile={handleDownloadFile}
+        />
+      )}
+      {transfering && <TransferingLine />}
     </>
   );
 }
