@@ -59,6 +59,10 @@ const Name = styled.h2`
   position: absolute;
   transform: translate(-50%, -50%);
   -webkit-transform: translate(-50%, -50%);
+
+  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+    top: 55vh;
+  }
 `;
 
 const Circle = styled.div`
