@@ -38,4 +38,9 @@ const MovingLine = styled.div`
     border-bottom: 15px solid transparent;
     transform: rotate(-180deg);
   }
+
+  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+    top: 43vh;
+    left: 30vw;
+  }
 `;
