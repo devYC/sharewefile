@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import user3 from "../../../../assets/usericons/user3.svg";
 import { remoteConnection } from "../../../../config/receiverRTCconfig";
@@ -74,17 +74,42 @@ function SenderIcon() {
     }, 1000);
   };
 
+  const renderPreview = () => {
+    if (!metadataRef.current) return null;
+
+    switch (fileType) {
+      case "image":
+        return (
+          <img
+            src={fileUrl}
+            alt="Preview"
+            style={{ maxWidth: "100%", maxHeight: "100%" }}
+          />
+        );
+      default:
+        return <p>Image File is available.</p>;
+    }
+  };
+
   return (
     <>
       <Name>Sender</Name>
       <UserImg src={user3} alt="sender" />
-      {downloadLink !== "" && (
-        <AcceptModal
-          metadata={metadata}
-          handleCloseButton={handleCloseButton}
-          handleDownloadFile={handleDownloadFile}
-        />
-      )}
+      <ModalContainer show={downloadLink !== ""}>
+        {downloadLink !== "" && (
+          <>
+            <AcceptModal
+              metadata={metadata}
+              handleCloseButton={handleCloseButton}
+              handleDownloadFile={handleDownloadFile}
+            />
+            <PreviewContainer>
+              Preview
+              <Preview>{renderPreview()}</Preview>
+            </PreviewContainer>
+          </>
+        )}
+      </ModalContainer>
       {transfering && <TransferingLine />}
     </>
   );
@@ -121,5 +146,55 @@ const UserImg = styled(Common)`
   @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
     top: 37.5vh;
     left: 25vw;
+  }
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+const ModalContainer = styled.div`
+  display: ${props => (props.show ? "block" : "none")};
+  animation: ${fadeIn} 600ms ease-in-out;
+`;
+
+const PreviewContainer = styled.div`
+  width: 18%;
+  height: 29%;
+  border-radius: 1em;
+  background: rgba(255, 255, 255, 0.3);
+  position: absolute;
+  top: 3vh;
+  left: 63vw;
+  color: #333333;
+  padding: 1em;
+  line-height: 2em;
+
+  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+    left: 65vw;
+    top: 15vh;
+    width: 25%;
+    height: 20%;
+  }
+`;
+
+const Preview = styled.div`
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  top: 5vh;
+  left: 8vh;
+  z-index: 1;
+
+  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+    left: 4vw;
+    top: 3vh;
+    width: 70%;
+    height: 100%;
   }
 `;
