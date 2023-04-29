@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 import title from "../../constants/constants";
+import ValidateBrowser from "../../utils/ValidateBrowser";
 
 function Main() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function Main() {
 
   return (
     <>
+      <ValidateBrowser />
       <Header>{title}</Header>
       <Elipse1 />
       <Elipse2 />
