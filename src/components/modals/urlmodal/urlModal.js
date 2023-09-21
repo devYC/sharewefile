@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import Proptypes from "prop-types";
 
-function UrlModal({ onClose, randomUrl }) {
+function UrlModal({ onClose, urlAddress }) {
   const [description, setDescription] = useState("Click this URL");
-  const URLaddress = `http://192.168.219.103:3000/${randomUrl}`;
+  const URLaddress = `http://sharewefile.com/receiver/${urlAddress}`;
   const [showStartButton, setShowStartButton] = useState(false);
-
   const handleCopyUrl = async () => {
     if (navigator.clipboard) {
       try {
@@ -19,13 +18,9 @@ function UrlModal({ onClose, randomUrl }) {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       setShowStartButton(true);
     }, 5000);
-
-    return () => {
-      clearTimeout(timer);
-    };
   }, []);
 
   const handleClickStart = () => {
@@ -53,7 +48,6 @@ function UrlModal({ onClose, randomUrl }) {
     </Wrapper>
   );
 }
-
 export default UrlModal;
 
 const Wrapper = styled.div`
@@ -97,7 +91,6 @@ const Description = styled.p`
 
   @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
     animation: shake 2s linear infinite;
-
     @keyframes shake {
       0% {
         bottom: -3vh;
@@ -174,7 +167,6 @@ const CloseBtn = styled.span`
   height: 4%;
   left: 0.5em;
   top: 0.5em;
-
   font-family: "Arial";
   font-style: normal;
   font-weight: 700;
@@ -201,6 +193,7 @@ const StartButton = styled.button`
   border-radius: 50px;
   border: none;
   appearance: none;
+
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
@@ -216,5 +209,5 @@ const StartButton = styled.button`
 
 UrlModal.propTypes = {
   onClose: Proptypes.func.isRequired,
-  randomUrl: Proptypes.string.isRequired,
+  urlAddress: Proptypes.string.isRequired,
 };
