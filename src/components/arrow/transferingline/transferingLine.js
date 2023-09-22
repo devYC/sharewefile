@@ -1,11 +1,8 @@
-import React from "react";
 import styled, { keyframes } from "styled-components";
 
-function TransferingLine() {
+export default function TransferingLine() {
   return <MovingLine />;
 }
-
-export default TransferingLine;
 
 const move = keyframes`
 from {
