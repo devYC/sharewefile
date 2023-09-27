@@ -1,58 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { v4 as uuid4 } from "uuid";
 
-import Main from "../pages/mainpage/Index";
-import Sender from "../pages/senderpage/Index";
-import NotFound from "../pages/notfoundpage/Index";
-import Receiver from "../pages/receiverpage/Index";
-import IsLoading from "../pages/loadingpage/Index";
-import { connectToSocket } from "../config/senderRTCconfig";
+import Main from "../components/pages/mainpage/mainPage";
+import Sender from "../components/pages/senderpage/senderPage";
+import Receiver from "../components/pages/receiverpage/receiverPage";
+import NotFound from "../components/pages/notfoundpage/notFoundPage";
+import MobileWarningPage from "../components/pages/mobilewarningpage/mobileWarningPage";
+import BrowserWarning from "../components/pages/browserwarningpage/browserWarningPage";
+import VersionWarning from "../components/pages/versionwarningpage/versionWarningPage";
 import "./styles.css";
 
 function App() {
-  const [randomUrl, setRandomUrl] = useState("");
-  const existedURL = sessionStorage.getItem("url");
-  const generateURL = () => {
-    const url = uuid4();
-    sessionStorage.setItem("url", url);
-    setRandomUrl(url);
-  };
-
-  const handleGenerateURL = () => {
-    if (existedURL) {
-      setRandomUrl(existedURL);
-    } else {
-      generateURL();
-    }
-  };
-
-  const sendURL = async () => {
-    const socketOfSender = await connectToSocket();
-    socketOfSender.emit("URL", existedURL);
-  };
-
-  useEffect(() => {
-    if (randomUrl !== "") {
-      sendURL();
-    }
-  }, [randomUrl]);
-
   return (
     <main>
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route
-          path="/sender"
-          element={
-            <Sender
-              randomUrl={randomUrl}
-              handleGenerateURL={handleGenerateURL}
-            />
-          }
-        />
-        <Route exact path="/:randomUrl" element={<Receiver />} />
-        <Route exact path="/:randomUrl" element={<IsLoading />} />
+        <Route path="/sender" element={<Sender />} />
+        <Route exact path="/receiver/:urlAddress" element={<Receiver />} />
+        <Route exact path="/mobilewarning" element={<MobileWarningPage />} />
+        <Route exact path="/browserwarning" element={<BrowserWarning />} />
+        <Route exact path="/versionwarning" element={<VersionWarning />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
