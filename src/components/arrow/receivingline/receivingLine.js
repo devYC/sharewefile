@@ -1,11 +1,8 @@
-import React from "react";
 import styled, { keyframes } from "styled-components";
 
-function ReceivingLine() {
+export default function ReceivingLine() {
   return <MovingLine />;
 }
-
-export default ReceivingLine;
 
 const move = keyframes`
 from {
