@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-import user3 from "../../../../assets/usericons/user3.svg";
-import { remoteConnection } from "../../../../config/receiverRTCconfig";
-import AcceptModal from "../acceptmodal/Index";
-import TransferingLine from "../transferingline/Index";
+import { remoteConnection } from "../../../RTCconnection/receiverRTCConnection";
+import AcceptModal from "../../modals/acceptmodal/acceptModal";
+import TransferingLine from "../../arrow/transferingline/transferingLine";
+import IconEffect from "../../../common/effect/iconEffect";
+import ModalEffect from "../../../common/effect/modalEffect";
 
 function SenderIcon() {
   const metadataRef = useRef("");
@@ -13,44 +14,50 @@ function SenderIcon() {
   const [downloadLink, setDownloadLink] = useState("");
   const [fileUrl, setFileUrl] = useState(null);
   const [fileType, setFileType] = useState(null);
-
   const handleCloseButton = () => {
     setDownloadLink("");
+  };
+
+  const createFile = chunksBuffer => {
+    const fileBlob = new Blob(chunksBuffer, {
+      type: metadataRef.current.type,
+    });
+
+    const fileUrl = URL.createObjectURL(fileBlob);
+
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = metadataRef.current.name;
+
+    return {
+      fileUrl,
+      fileType: metadataRef.current.type.split("/")[0],
+      downloadLink: link,
+    };
   };
 
   remoteConnection.ondatachannel = e => {
     const receiveChannel = e.channel;
     let chunksBuffer = [];
-
     receiveChannel.onmessage = e => {
       if (typeof e.data === "string") {
         metadataRef.current = JSON.parse(e.data);
         setMetadata(metadataRef.current);
       }
-
       if (typeof e.data === "object") {
         const fileBuffer = e.data;
         chunksBuffer.push(fileBuffer);
-
         const receivedSize = chunksBuffer.reduce(
           (acc, chunk) => acc + chunk.byteLength,
           0
         );
 
         if (receivedSize === metadataRef.current.size) {
-          const fileBlob = new Blob(chunksBuffer, {
-            type: metadataRef.current.type,
-          });
-
-          const fileUrl = URL.createObjectURL(fileBlob);
+          const { fileUrl, fileType, downloadLink } = createFile(chunksBuffer);
 
           setFileUrl(fileUrl);
-          setFileType(metadataRef.current.type.split("/")[0]);
-
-          const link = document.createElement("a");
-          link.href = fileUrl;
-          link.download = metadataRef.current.name;
-          setDownloadLink(link);
+          setFileType(fileType);
+          setDownloadLink(downloadLink);
 
           chunksBuffer = [];
         }
@@ -60,6 +67,7 @@ function SenderIcon() {
 
   const handleDownloadFile = () => {
     setTransfering(true);
+
     downloadLink.download = metadataRef.current.name;
     downloadLink.dispatchEvent(
       new MouseEvent("click", {
@@ -68,6 +76,7 @@ function SenderIcon() {
         view: window,
       })
     );
+
     setDownloadLink("");
     setTimeout(() => {
       setTransfering(false);
@@ -76,7 +85,6 @@ function SenderIcon() {
 
   const renderPreview = () => {
     if (!metadataRef.current) return null;
-
     switch (fileType) {
       case "image":
         return (
@@ -93,9 +101,8 @@ function SenderIcon() {
 
   return (
     <>
-      <Name>Sender</Name>
-      <UserImg src={user3} alt="sender" />
-      <ModalContainer show={downloadLink !== ""}>
+      <IconEffect name="Sender" src="/assets/usericons/sender.svg" />
+      <ModalEffect show={downloadLink !== ""}>
         {downloadLink !== "" && (
           <>
             <AcceptModal
@@ -109,59 +116,12 @@ function SenderIcon() {
             </PreviewContainer>
           </>
         )}
-      </ModalContainer>
+      </ModalEffect>
       {transfering && <TransferingLine />}
     </>
   );
 }
-
 export default SenderIcon;
-
-const Name = styled.h2`
-  font-size: 1.1em;
-  font-weight: 600;
-  top: 36vh;
-  left: 29vw;
-  position: absolute;
-  transform: translate(-50%, -50%);
-
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 40vh;
-    left: 25vw;
-  }
-`;
-
-const Common = styled.img`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  border-radius: 100%;
-`;
-
-const UserImg = styled(Common)`
-  width: 5em;
-  height: 5em;
-  top: 30vh;
-  left: 29.5vw;
-
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 37.5vh;
-    left: 25vw;
-  }
-`;
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const ModalContainer = styled.div`
-  display: ${props => (props.show ? "block" : "none")};
-  animation: ${fadeIn} 600ms ease-in-out;
-`;
 
 const PreviewContainer = styled.div`
   width: 18%;
