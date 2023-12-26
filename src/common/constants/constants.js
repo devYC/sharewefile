@@ -34,8 +34,8 @@ export const configuration = {
     { urls: "stun:stun.l.google.com:19302" },
     {
       urls: "turn:3.39.84.168:3478?transport=tcp",
-      username: "process.env.REACT_APP_TURN_SERVER_USERNAME",
-      credential: "process.env.REACT_APP_TURN_SERVER_CREDENTIAL",
+      username: process.env.REACT_APP_TURN_SERVER_USERNAME,
+      credential: process.env.REACT_APP_TURN_SERVER_CREDENTIAL,
     },
   ],
 };
