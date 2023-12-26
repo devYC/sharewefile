@@ -12,6 +12,7 @@ import {
 } from "../common/utils/checkStateOfConnection.util";
 
 let isCalled = false;
+console.log(JSON.stringify(configuration));
 const localConnection = new RTCPeerConnection(configuration);
 const dataChannel = localConnection.createDataChannel("sendingchannel");
 
