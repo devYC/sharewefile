@@ -11,6 +11,12 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v2
 
+      - name: .env setting
+        run: |
+          echo "REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }}" >> .env.production
+          echo "REACT_APP_TURN_SERVER_USERNAME=${{ secrets.REACT_APP_TURN_SERVER_USERNAME }}" >> .env.production
+          echo "REACT_APP_TURN_SERVER_CREDENTIAL=${{ secrets.REACT_APP_TURN_SERVER_CREDENTIAL }}" >> .env.production
+
       - name: Install Dependencies
         run: npm install
 
