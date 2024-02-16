@@ -210,7 +210,7 @@ https://github.com/devYC/sharewefile/assets/149979446/ed6d9d3c-cf17-4498-8eb1-17
 
 <img width="308" alt="Screenshot 2024-02-16 at 13 53 27" src="https://github.com/devYC/sharewefile/assets/149979446/e754fa29-7c5f-43c2-a82b-a29a31268d80"> <img width="312" alt="Screenshot 2024-02-16 at 13 53 35" src="https://github.com/devYC/sharewefile/assets/149979446/7036c4b0-2d0d-4000-9ade-a7295c0309c4">
 
-- `Sender` 입장에서 파일을 잘못 선택할 가능성이 있어서 파일 선택 후 최종적으로 결정할 수 있는 모달, Yes, No, X 버튼의 **선택지 제공** 했습니다.
+- `Sender` 입장에서 파일을 잘못 선택할 가능성이 있어서 파일 선택 후 최종적으로 결정할 수 있는 모달, Yes, No, X 버튼의 **선택지를 제공** 했습니다.
 
 <img width="443" alt="Screenshot 2024-02-16 at 13 54 11" src="https://github.com/devYC/sharewefile/assets/149979446/616b51b4-4804-4876-8a13-1552be68d56f">
 
