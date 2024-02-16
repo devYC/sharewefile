@@ -13,12 +13,20 @@ to {
 }
 `;
 
+const mobileMoving = keyframes`
+  from {
+    transform: rotate(-125deg) translate(-100%, 100%);
+  } to {
+    transform: rotate(-125deg) translate(0,0);
+  }
+`;
+
 const MovingLine = styled.div`
   position: absolute;
   width: 50px;
   height: 0;
-  left: 35vw;
-  top: 40vh;
+  left: 35%;
+  top: 40%;
   border: 3px dashed rgba(255, 255, 255, 0.8);
   animation: ${move} 1s linear infinite;
 
@@ -36,8 +44,24 @@ const MovingLine = styled.div`
     transform: rotate(0deg);
   }
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 43vh;
-    left: 30vw;
+  @media screen and (max-width: 430px) {
+    left: 25%;
+    top: 30%;
+    animation: ${mobileMoving} 1s linear infinite;
+  }
+
+  @media screen and (min-width: 431px) and (max-width: 768px) {
+    left: 25%;
+    top: 30%;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    left: 25%;
+    top: 30%;
+  }
+
+  @media screen and (min-width: 1025px) {
+    left: 27%;
+    top: 36%;
   }
 `;

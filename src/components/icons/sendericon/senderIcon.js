@@ -91,11 +91,14 @@ function SenderIcon() {
           <img
             src={fileUrl}
             alt="Preview"
-            style={{ maxWidth: "100%", maxHeight: "100%" }}
+            style={{ maxWidth: "90%", maxHeight: "90%" }}
+            margin-top="1vh"
           />
         );
       default:
-        return <p>Image File is available.</p>;
+        return (
+          <p>Image Files are only available such as png, svg, jpeg so on.</p>
+        );
     }
   };
 
@@ -111,7 +114,7 @@ function SenderIcon() {
               handleDownloadFile={handleDownloadFile}
             />
             <PreviewContainer>
-              Preview
+              [Preview]
               <Preview>{renderPreview()}</Preview>
             </PreviewContainer>
           </>
@@ -124,37 +127,73 @@ function SenderIcon() {
 export default SenderIcon;
 
 const PreviewContainer = styled.div`
-  width: 18%;
-  height: 29%;
+  width: 100vw;
+  height: 29vh;
   border-radius: 1em;
   background: rgba(255, 255, 255, 0.3);
   position: absolute;
   top: 3vh;
-  left: 63vw;
+  right: 0;
   color: #333333;
   padding: 1em;
   line-height: 2em;
+  text-align: center;
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    left: 65vw;
-    top: 15vh;
-    width: 25%;
-    height: 20%;
+  @media screen and (max-width: 320px) {
+    max-width: 50vw;
+    top: 64vh;
+    right: 0;
+  }
+
+  @media screen and (min-width: 321px) and (max-width: 639px) {
+    top: 68vh;
+    right: 0;
+    max-width: 50vw;
+  }
+
+  @media screen and (min-width: 640px) and (max-width: 1080px) {
+    top: 72vh;
+    right: 0;
+    max-width: 60vw;
+  }
+
+  @media screen and (min-width: 1081px) {
+    top: 7vh;
+    width: 100vw;
+    max-width: 30vw;
+    height: 50vh;
   }
 `;
 
 const Preview = styled.div`
-  width: 80%;
-  height: 80%;
+  width: 80vw;
+  height: 80vh;
   position: absolute;
-  top: 5vh;
+  top: 8vh;
   left: 8vh;
   z-index: 1;
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    left: 4vw;
-    top: 3vh;
-    width: 70%;
-    height: 100%;
+  @media screen and (max-width: 320px) {
+    top: 10vh;
+    left: 7vw;
+  }
+
+  @media screen and (min-width: 321px) and (max-width: 639px) {
+    width: 39vw;
+  }
+
+  @media screen and (min-width: 640px) and (max-width: 1080px) {
+    top: 5vh
+    right: 1vh;
+    height: 27vh;
+    max-width: 58vw;
+  }
+
+  @media screen and (min-width: 1081px) {
+    top: 6vh;
+    width: 100vw;
+    max-width: 30vw;
+    height: 50vh;
+    left: 0;
   }
 `;

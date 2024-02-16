@@ -11,10 +11,10 @@ export default function PageEffect({ name, src }) {
 }
 
 const Elipse = styled.div`
-  width: 60vw;
-  height: 60vw;
-  max-width: 40em;
-  max-height: 40em;
+  width: 50em;
+  height: 50em;
+  max-width: 100%;
+  max-height: 100%;
   top: 50vh;
   left: 50vw;
   position: absolute;
@@ -31,23 +31,58 @@ const Name = styled.h2`
   font-weight: 400;
   padding: 0.4em;
   background: rgba(0, 0, 0, 0.2);
-  top: 60%;
-  left: 50%;
+  top: 55vh;
+  left: 50vw;
   position: absolute;
   text-align: center;
   transform: translate(-50%, -50%);
   margin-bottom: 1em;
-  -webkit-transform: translate(-50%, -50%);
+
+  @media screen and (max-width: 430px) {
+    top: 56vh;
+  }
+
+  @media screen and (min-width: 431px) and (max-width: 768px) {
+    top: 60vh;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    top: 62vh;
+    font-size: 1.7em;
+  }
+
+  @media screen and (min-width: 1025px) {
+    top: 62vh;
+    font-size: 1.8em;
+  }
 `;
 
 const UserImg = styled.img`
-  width: 17vw;
-  height: 17vw;
-  max-width: 10.2em;
-  max-height: 10.2em;
-  top: 48%;
-  left: 50%;
+  min-width: 10vw;
+  min-height: 10vh;
+  top: 48vh;
+  left: 50vw;
   position: absolute;
   transform: translate(-50%, -50%);
   border-radius: 100%;
+
+  @media screen and (max-width: 430px) {
+    max-width: 20%;
+    max-height: 18%;
+  }
+
+  @media screen and (min-width: 431px) and (max-width: 768px) {
+    max-width: 22%;
+    max-heignt: 20%;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    max-width: 24%;
+    max-height: 22%;
+  }
+
+  @media screen and (min-width: 1025px) {
+    max-width: 25%;
+    max-height: 23%;
+  }
 `;

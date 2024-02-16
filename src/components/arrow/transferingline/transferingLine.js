@@ -13,6 +13,14 @@ to {
 }
 `;
 
+const mobileMovement = keyframes`
+  from {
+    transform: rotate(-125deg) translate(0,0);
+  } to {
+    transform: rotate(-125deg) translate(-100%, 100%);
+  }
+`;
+
 const MovingLine = styled.div`
   position: absolute;
   width: 50px;
@@ -36,8 +44,24 @@ const MovingLine = styled.div`
     transform: rotate(-180deg);
   }
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 43vh;
-    left: 30vw;
+  @media screen and (max-width: 430px) {
+    left: 25%;
+    top: 30%;
+    animation: ${mobileMovement} 1s linear infinite;
+  }
+
+  @media screen and (min-width: 431px) and (max-width: 768px) {
+    left: 25%;
+    top: 30%;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    left: 25%;
+    top: 30%;
+  }
+
+  @media screen and (min-width: 1025px) {
+    left: 27%;
+    top: 36%;
   }
 `;

@@ -114,15 +114,34 @@ const Button = styled.button`
   padding: 2em;
   border-radius: 2em;
   position: absolute;
-  top: 40vh;
-  left: 27vw;
+  top: 30%;
+  left: 4%;
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 42vh;
-    left: 22vw;
+  @media screen and (min-width: 431px) and (max-width: 600x) {
+    left: 6%;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 900px) {
+    left: 8%;
+  }
+
+  @media screen and (min-width: 901px) and (max-width: 1024px) {
+    left: 13%;
+  }
+
+  @media screen and (min-width: 1025px) and (max-width: 1280px) {
+    left: 14%;
+  }
+
+  @media screen and (min-width: 1281px) and (max-width: 2560px) {
+    left: 21%;
+  }
+
+  @media screen and (min-width: 2561px) {
+    left: 28%;
   }
 `;
 

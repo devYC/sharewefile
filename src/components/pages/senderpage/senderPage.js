@@ -89,13 +89,10 @@ function Sender() {
 
 const URLButton = styled.button`
   position: absolute;
-  top: 70%;
-  left: 50%;
+  left: 50vw;
   transform: translate(-50%, -50%);
-  width: 8vw;
-  height: 8vw;
-  max-width: 4em;
-  max-height: 4em;
+  min-width: 53px;
+  min-height: 53px;
   border: none;
   border-radius: 100%;
   appearance: none;
@@ -103,17 +100,22 @@ const URLButton = styled.button`
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  -webkit-transform: translate(-50%, -50%);
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 60%;
-    left: 50%;
+  @media screen and (max-width: 430px) {
+    top: 72vh;
   }
 
-  @media only screen and (max-device-sidth: 320px) {[
-    top: 70%;
-    left: 50%;
-  ]}
+  @media screen and (min-width: 431px) and (max-width: 768px) {
+    top: 68vh;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    top: 72vh;
+  }
+
+  @media screen and (min-width: 1025px) {
+    top: 72vh;
+  }
 `;
 
 export default Sender;

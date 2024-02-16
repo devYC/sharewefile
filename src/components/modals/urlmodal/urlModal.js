@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import Proptypes from "prop-types";
 
 function UrlModal({ onClose, urlAddress }) {
-  const [description, setDescription] = useState("Click this URL");
+  const [description, setDescription] = useState("↑↑↑↑ Click this URL ↑↑↑↑");
   const URLaddress = `http://sharewefile.com/receiver/${urlAddress}`;
   const [showStartButton, setShowStartButton] = useState(false);
   const handleCopyUrl = async () => {
@@ -55,51 +55,59 @@ const Wrapper = styled.div`
   width: 40%;
   height: 28%;
   right: 0;
-  top: 50%;
+  top: 50vh;
   transform: translate(0, -50%);
   background: rgba(255, 255, 255, 0.4);
   border-radius: 50px 0px 0px 50px;
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    height: 20%;
-    top: 55%;
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    top: 20vh;
+    border-radius: 50px 50px 50px 50px;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 768px) {
+    width: 48%;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    right: -7vw;
   }
 `;
 
 const Description = styled.p`
   position: absolute;
-  font-family: "Arial";
   font-style: normal;
   font-weight: 700;
   font-size: 1em;
   line-height: 1.2em;
   color: #333333;
   left: 1.5vw;
+  text-align: center;
   animation: shake 2s linear infinite;
 
   @keyframes shake {
     0% {
-      bottom: -6.5vh;
+      bottom: -7.5vh;
     }
     50% {
-      bottom: -6vh;
+      bottom: -7vh;
     }
     100% {
-      bottom: -6.5vh;
+      bottom: -7.5vh;
     }
   }
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    animation: shake 2s linear infinite;
+  @media screen and (min-width: 601px) and (max-width: 768px) {
     @keyframes shake {
       0% {
-        bottom: -3vh;
+        bottom: -8.5vh;
       }
       50% {
-        bottom: -4vh;
+        bottom: -8vh;
       }
       100% {
-        bottom: -3vh;
+        bottom: -8.5vh;
       }
     }
   }
@@ -107,32 +115,42 @@ const Description = styled.p`
 
 const Words = styled.h3`
   position: absolute;
-  width: 85%;
-  height: 20%;
-  right: 1vw;
-  top: 5vh;
-  font-family: "Arial";
+  width: 80%;
+  right: 5vw;
+  top: 2vh;
   font-style: normal;
   font-weight: 600;
   font-size: 1.4em;
-  line-height: 1.4em;
+  line-height: 1.2em;
   color: #333333;
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 3.5vh;
+  @media screen and (max-width: 280px) {
+    font-size: 1em;
+  }
+
+  @media screen and (max-width: 720px) {
+    width: 80%;
+    font-size: 1em;
+  }
+
+  @media screen and (min-width: 721px) and (max-width: 1024px) {
+    right: 1vw;
+  }
+
+  @media screen and (min-width: 1025px) {
+    right: 3vw;
   }
 `;
 
 const URL = styled.div`
   box-sizing: border-box;
-  font-family: "Arial";
   font-style: normal;
   font-weight: 400;
   font-size: 1em;
-  line-height: 1em;
+  line-height: 1.2em;
   color: #000000;
   padding: 2.5%;
-  padding-left: 5%;
+  padding-left: 4%;
   border-radius: 2em;
 
   &:focus {
@@ -140,8 +158,18 @@ const URL = styled.div`
     font-style: italic;
   }
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    line-height: 1.3em;
+  @media screen and (max-width: 280px) {
+    font-size: 0.8em;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 768px) {
+    padding: 5%;
+    line-height: 1.2em;
+    font-size: 0.8em;
+  }
+
+  @media screen and (min-width: 769px) and (max-width: 1024px) {
+    line-height:: 1.4em;
   }
 `;
 
@@ -149,15 +177,22 @@ const URLwrapper = styled.div`
   box-sizing: border-box;
   position: absolute;
   width: 90%;
-  height: 20%;
-  right: 0.5em;
-  top: 14vh;
+  right: 5vw;
+  top: 12vh;
   border: 0.01em solid #999999;
   border-radius: 2em;
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 40%;
-    height: 17%;
+  @media screen and (max-width: 600px) {
+    width: 84%;
+    left: 5vw;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 1024px) {
+    right: 0;
+  }
+
+  @media screen and (min-width: 1025px) {
+    right: 2vw;
   }
 `;
 
@@ -165,32 +200,25 @@ const CloseBtn = styled.span`
   position: absolute;
   width: 2%;
   height: 4%;
-  left: 0.5em;
-  top: 0.5em;
-  font-family: "Arial";
+  left: 1vw;
+  top: 1vh;
   font-style: normal;
   font-weight: 700;
   font-size: 1.5em;
   line-height: 1.3em;
   padding: 0.5em;
   color: #000000;
-
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 1vh;
-  }
 `;
 
 const StartButton = styled.button`
   position: absolute;
   font-size: 1.2em;
-  top: 36vh;
-  left: 4vw;
-  transform: translate(-50%, -50%);
-  width: 20vw;
-  height: 20vh;
-  max-width: 5vw;
-  max-height: 5vh;
-  border-radius: 50px;
+  top: 34vh;
+  right: 10vw;
+  max-width: 20vw;
+  max-height: 10vh;
+  border-radius: 50px 50px 50px 50px;
+  margin-top: 2vh;
   border: none;
   appearance: none;
 
@@ -198,12 +226,8 @@ const StartButton = styled.button`
     background-color: rgba(0, 0, 0, 0.1);
   }
 
-  @media only screen and (max-device-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
-    top: 22.5vh;
-    left: 4vw;
-    max-width: 8vw;
-    max-height: 2.5vh;
-    border-radius: 25px;
+  @media screen and (min-width: 601px) and (max-width: 768px) {
+    right: 5vw;
   }
 `;
 

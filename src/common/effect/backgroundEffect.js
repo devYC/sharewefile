@@ -36,35 +36,34 @@ const commonElipseStyle = css`
   border-radius: 50%;
   box-sizing: border-box;
   border: 0.5px solid rgba(255, 255, 255, 0.6);
-  -webkit-animation: ${pulseAnimation} 2s ease-in-out infinite;
-  -moz-animation: ${pulseAnimation} 2s ease-in-out infinite;
+  animation: ${pulseAnimation} 2s ease-in-out infinite;
 `;
 
 const Elipse1 = styled.div`
   ${commonElipseStyle}
-  height: 20em;
-  width: 20em;
+  height: 20%;
+  width: 20%;
   animation: ${pulseAnimation} 2s ease-in-out infinite;
 `;
 
 const Elipse2 = styled.div`
   ${commonElipseStyle}
-  width: 40em;
-  height: 40em;
+  width: 40%;
+  height: 40%;
   animation: ${pulseAnimation} 3s ease-in-out infinite;
 `;
 
 const Elipse3 = styled.div`
   ${commonElipseStyle}
-  height: 60em;
-  width: 60em;
+  height: 60%;
+  width: 60%;
   animation: ${pulseAnimation} 4s ease-in-out infinite;
 `;
 
 const Elipse4 = styled.div`
   ${commonElipseStyle}
-  width: 80em;
-  height: 80em;
+  width: 80%;
+  height: 80%;
   animation: ${pulseAnimation} 5s ease-in-out infinite;
 `;
 
