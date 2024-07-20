@@ -1,31 +1,67 @@
 const title = "Share We?";
-const mobileWarningTitle =
-  "Mobile application is not supported. Please use the web version instead";
+const mobile = "Mobile";
+const operaMini = "Opera";
 const browserWarningTitle =
-  "Please open a valid browser such as Safari, Chrome, Microsoft Edge, Firefox, Opera, Samsung Browser.";
-const versionWarningTitle = "Please use the latest version of your browser.";
+  "Please open a valid browser such as Safari, Chrome, Microsoft Edge, Firefox, Opera in terms of desktop. In terms of mobile or tablet, please set the default browser as one of above.";
+const versionWarningTitle = "Please update your browser to the latest version.";
 const notFoundTitle = "You should check URL address again";
 const CHUNK_SIZE = 16384;
-const MINIMUM_EDGE_VERSION = 79;
-const MINIMUM_FIREFOX_VERSION = 44;
-const MINIMUM_OPR_VERSION = 43;
-const MINIMUM_SAFARI_VERSION = 11;
-const MINIMUM_CHROME_VERSION = 56;
-const MINIMUM_SAMSUNGBROWSER_VERSION = 4;
+
+const webBrowsers = [
+  {
+    name: "Edg",
+    minimumVersion: 79,
+  },
+  {
+    name: "Firefox",
+    minimumVersion: 44,
+  },
+  {
+    name: "OPR",
+    minimumVersion: 43,
+  },
+  {
+    name: "Safari",
+    minimumVersion: 11,
+  },
+  {
+    name: "Chrome",
+    minimumVersion: 56,
+  },
+];
+const mobileBrowsers = [
+  {
+    name: "Edg",
+    minimumVersion: 120,
+  },
+  {
+    name: "Firefox",
+    minimumVersion: 122,
+  },
+  {
+    name: "SamsungBrowser",
+    minimumVersion: 4,
+  },
+  {
+    name: "Safari",
+    minimumVersion: 11,
+  },
+  {
+    name: "Chrome",
+    minimumVersion: 120,
+  },
+];
 
 export {
   CHUNK_SIZE,
-  MINIMUM_EDGE_VERSION,
-  MINIMUM_FIREFOX_VERSION,
-  MINIMUM_OPR_VERSION,
-  MINIMUM_SAFARI_VERSION,
-  MINIMUM_CHROME_VERSION,
-  MINIMUM_SAMSUNGBROWSER_VERSION,
   title,
-  mobileWarningTitle,
   browserWarningTitle,
   versionWarningTitle,
   notFoundTitle,
+  mobile,
+  operaMini,
+  webBrowsers,
+  mobileBrowsers,
 };
 
 export const configuration = {
@@ -33,7 +69,7 @@ export const configuration = {
     { urls: "stun:stun.services.mozilla.com" },
     { urls: "stun:stun.l.google.com:19302" },
     {
-      urls: "turn:3.39.84.168:3478?transport=tcp",
+      urls: "turn:15.164.255.217:3478?transport=tcp",
       username: process.env.REACT_APP_TURN_SERVER_USERNAME,
       credential: process.env.REACT_APP_TURN_SERVER_CREDENTIAL,
     },
